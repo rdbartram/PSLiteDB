@@ -1,4 +1,4 @@
-$modulename = "PSlitedb"
+$modulename = "PSLiteDB"
 if (Get-Module -Name $modulename)
 {
   Remove-Module -Name $modulename
