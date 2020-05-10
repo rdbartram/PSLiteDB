@@ -19,7 +19,8 @@ if ($Bootstrap.IsPresent)
   if (-not (Get-Module -Name Pester -ListAvailable) -or (Get-Module -Name Pester -ListAvailable)[0].Version -eq [Version]'3.4.0')
   {
     Write-Warning "Module 'Pester' is missing. Installing 'Pester' ..."
-    Install-Module -Name Pester -Scope CurrentUser -Force
+    Install-Module -Name Pester -Scope CurrentUser -Force -verbose -MaximumVersion 4.10.1
+    Get-Module pester
   }
 
 }
@@ -66,9 +67,10 @@ if ($Test.IsPresent)
     throw "Cannot find the 'Pester' module. Please specify '-Bootstrap' to install build dependencies."
   }
 
-  if ($env:TF_BUILD)
+  if (-not $env:TF_BUILD)
   {
-    $res = Invoke-Pester "./tests" -OutputFormat NUnitXml -OutputFile TestResults.xml -PassThru
+    #((Resolve-path $PSScriptRoot\..\tests).Path)
+    $res = Invoke-Pester "./Tests" -OutputFormat NUnitXml -OutputFile TestResults.xml -PassThru
     if ($res.FailedCount -gt 0) { throw "$($res.FailedCount) tests failed." }
   }
 
