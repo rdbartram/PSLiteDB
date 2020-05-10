@@ -68,7 +68,7 @@ if ($Test.IsPresent)
 
   if ($env:TF_BUILD)
   {
-    $res = Invoke-Pester "./Tests" -OutputFormat NUnitXml -OutputFile TestResults.xml -PassThru
+    $res = Invoke-Pester "./tests" -OutputFormat NUnitXml -OutputFile TestResults.xml -PassThru
     if ($res.FailedCount -gt 0) { throw "$($res.FailedCount) tests failed." }
   }
 
