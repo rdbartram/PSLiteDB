@@ -1,6 +1,13 @@
 $modulename = "PSlitedb"
-$psd1 = "{0}{1}" -f ($PSScriptRoot -replace "tests"), ("module\$modulename`.psd1")
-ipmo $psd1 -Force
+if (Get-Module -Name $modulename)
+{
+  Remove-Module -Name $modulename
+}
+
+#$psd1 = "{0}{1}" -f ($PSScriptRoot -replace "tests"), ("module\$modulename`.psd1")
+$psd1 = (Resolve-Path "$PSScriptRoot/../module/$modulename`.psd1").path
+Import-Module $psd1 -Force
+
 
 try
 {
