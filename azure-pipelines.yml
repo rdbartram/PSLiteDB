@@ -1,10 +1,8 @@
-
-trigger:
-- master
-
-
-pool:
-  vmImage: 'ubuntu-latest'
+jobs:
+- job: PSLiteDBBuild
+  displayName: 'Build PSLiteDB'
+  pool:
+    vmImage: 'ubuntu-latest'
 
   steps:
   - task: PowerShell@2
